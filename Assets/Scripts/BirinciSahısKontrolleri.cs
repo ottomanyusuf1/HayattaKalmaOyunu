@@ -3,6 +3,7 @@ using UnityEngine;
 public class FirstPersonController : MonoBehaviour
 {
     public float speed = 5.0f;
+    public float sprintSpeed = 10.0f; // Shift tuşuna basınca hızlanma
     public float mouseSensitivity = 2.0f;
     public float jumpHeight = 2.0f;
     public CharacterController controller;
@@ -34,8 +35,11 @@ public class FirstPersonController : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
+        // Shift tuşuna basınca hızlanma
+        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : speed;
+
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
-        controller.Move(move * speed * Time.deltaTime);
+        controller.Move(move * currentSpeed * Time.deltaTime);
 
         // Yer çekimi uygulama
         if (controller.isGrounded && velocity.y < 0)
