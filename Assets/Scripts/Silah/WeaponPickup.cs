@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class WeaponPickup : MonoBehaviour
 {
-    public Transform weaponHolder; // Silahı tutacak nokta (Oyuncunun eline takılacak)
-    public GameObject weaponModel; // Silahın modeli
-    public KeyCode pickupKey = KeyCode.E; // Silah alma tuşu (E)
-    public KeyCode dropKey = KeyCode.G; // Silah bırakma tuşu (G)
+    [SerializeField] private Transform weaponHolder; // Silahı tutacak nokta (Oyuncunun eline takılacak)
+    [SerializeField] private GameObject weaponModel; // Silahın modeli
+    [SerializeField] private KeyCode pickupKey = KeyCode.E; // Silah alma tuşu (E)
+    [SerializeField] private KeyCode dropKey = KeyCode.G; // Silah bırakma tuşu (G)
     
     private bool isInRange = false; // Oyuncu silaha yakın mı?
     
