@@ -9,6 +9,7 @@ public class InventoryUIControl : MonoBehaviour
     private void Start()
     {
         userInventory = gameObject.GetComponent<Inventory>();
+        UpdateUI();
     }
 
     public void UpdateUI()

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class FirstPersonController : MonoBehaviour
@@ -11,16 +12,33 @@ public class FirstPersonController : MonoBehaviour
     private float gravity = -9.81f;
     private Vector3 velocity;
     private float xRotation = 0f;
+    [SerializeField] GameObject userInventory;
+    bool isInventoryOpen;
 
     public Transform cameraTransform;
 
     void Start()
     {
+        userInventory.SetActive(false);
         //Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            if (isInventoryOpen == false)
+            {
+                userInventory.SetActive(true);
+                isInventoryOpen = true;
+
+            }
+            else if(isInventoryOpen==true)
+            {
+                userInventory.SetActive(false);
+                isInventoryOpen = false;
+            }
+        }
         // Fare ile bakış kontrolü
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;

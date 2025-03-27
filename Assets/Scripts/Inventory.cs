@@ -1,3 +1,4 @@
+using System.Data.Common;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -11,7 +12,24 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         InventoryUI = gameObject.GetComponent<InventoryUIControl>();
-        InventoryUI.UpdateUI();
+    }
+    public void DeleteItem()
+    {
+        if (isSwapping == true)
+        {
+            playerInventory.DeleteItem(tempIndex);
+            isSwapping = false;
+            InventoryUI.UpdateUI();
+        }
+    }
+    public void DropItem()
+    {
+        if (isSwapping == true)
+        {
+            playerInventory.DropItem(tempIndex,gameObject.transform.position+Vector3.forward);
+            isSwapping = false;
+            InventoryUI.UpdateUI();
+        }
     }
     public void SwapItem(int index)
     {
