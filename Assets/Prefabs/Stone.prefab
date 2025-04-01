@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 8953936356615613601}
   - component: {fileID: -6346494963260717721}
   m_Layer: 0
-  m_Name: Rock_01
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInRange: 0
-  ItemName: Rock
+  ItemName: Stone
 --- !u!65 &-6346494963260717721
 BoxCollider:
   m_ObjectHideFlags: 0
