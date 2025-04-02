@@ -63,7 +63,7 @@ public class FPSController : MonoBehaviour
         // Yerçekimi Uygula
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-        if(InventorySystem.Instance.isOpen == false)
+        if(!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen)
         {
                     // Kamera Hareketi (Fare ile Bakış)
                     float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
