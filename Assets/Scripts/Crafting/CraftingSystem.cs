@@ -77,20 +77,19 @@ public static CraftingSystem Instance {get; set;}
     StartCoroutine(calculate());
 
     
-        RefleshNeededItems();
     }
 
     public IEnumerator calculate()
     {
-        yield return new WaitForSeconds(1f);
+        yield return 0;
 
         InventorySystem.Instance.ReCalculateList();
+        RefleshNeededItems();
     }
 
     // Update is called once per frame
     void Update()
     {
-        RefleshNeededItems();
 
         if (Input.GetKeyDown(KeyCode.C) && !isOpen)
         {
@@ -113,7 +112,7 @@ public static CraftingSystem Instance {get; set;}
         }
     }
     
-    private void RefleshNeededItems()
+    public void RefleshNeededItems()
     {
         int stone_count = 0;
         int stick_count = 0;
