@@ -28,11 +28,14 @@ public class FPSController : MonoBehaviour
     private float xRotation = 0f;
     private float currentSpeed;
     private Camera cam;
+    private PlayerState playerState;
 
+    
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked; // Fareyi ekranın ortasına kilitle
         cam = playerCamera.GetComponent<Camera>(); // Kamera bileşenini al
+        
     }
 
     void Update()
@@ -53,6 +56,10 @@ public class FPSController : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * currentSpeed * Time.deltaTime);
+        
+
+        
+
 
         // Zıplama
         if (Input.GetButtonDown("Jump") && isGrounded)

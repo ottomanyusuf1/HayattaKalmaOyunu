@@ -108,7 +108,15 @@ public class InventorySystem : MonoBehaviour
         
         pickupName.text = itemName;
         pickupImage.sprite = itemSprite;
+
+        StartCoroutine(HidePickupPopup());
     }
+
+    IEnumerator HidePickupPopup()
+{
+    yield return new WaitForSeconds(1f); // 1 saniye bekle
+    pickupAlert.SetActive(false); // Popup'u gizle
+}
 
 
     private GameObject FindNextEmptySlot()
