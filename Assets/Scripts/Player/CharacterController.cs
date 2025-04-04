@@ -82,7 +82,7 @@ public class FPSController : MonoBehaviour
                     transform.Rotate(Vector3.up * mouseX);
                     }
                     // Zoom (Sağ Tık)
-                    float targetFOV = Input.GetMouseButton(1) ? zoomFOV : normalFOV;
+                    float targetFOV = Input.GetKey(KeyCode.V) ? zoomFOV : normalFOV;
                     cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFOV, zoomSpeed * Time.deltaTime);
     }
 }
