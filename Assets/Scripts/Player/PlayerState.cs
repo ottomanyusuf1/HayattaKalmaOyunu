@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerState : MonoBehaviour
 {
@@ -74,6 +75,21 @@ public class PlayerState : MonoBehaviour
         {
             currentHealth -= 10;
         }
+    }
+
+    public void setHealth(float newHealth)
+    {
+        currentHealth = newHealth;
+    }
+
+    public void setCalories(float newCalories)
+    {
+        currentCalories = newCalories;
+    }
+
+    public void setHydration(float newHydration)
+    {
+        currentHydrationPersent = newHydration;
     }
     
 
