@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
  
@@ -16,6 +17,9 @@ public class SelectionManager : MonoBehaviour
     public Image centerDotImage;
     public Image handIcon;
     public bool handIsVisible;
+
+    public GameObject selectedTree;
+    public GameObject chopHolder;
  
     private void Start()
     {
@@ -43,6 +47,8 @@ public class SelectionManager : MonoBehaviour
             var selectionTransform = hit.transform;
 
             InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
+
+
  
             if (interactable && interactable.playerInRange)
             {

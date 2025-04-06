@@ -19,7 +19,14 @@ public Animator animator;
         CraftingSystem.Instance.isOpen == false &&
         SelectionManager.Instance.handIsVisible == false)
         {
+            StartCoroutine(SwingSoundDelay());
             animator.SetTrigger("hit");
         }
+    }
+
+    IEnumerator SwingSoundDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
+        SoundManager.Instance.PlaySound(SoundManager.Instance.toolSwingSound);
     }
 }

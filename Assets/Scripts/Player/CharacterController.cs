@@ -30,6 +30,9 @@ public class FPSController : MonoBehaviour
     private Camera cam;
     private PlayerState playerState;
 
+    private Vector3 lastPosition = new Vector3 (0f, 0f,0f);
+    public bool isMoving;
+
     
     void Start()
     {
@@ -56,6 +59,19 @@ public class FPSController : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * currentSpeed * Time.deltaTime);
+
+        if (lastPosition != gameObject.transform.position && isGrounded == true)
+        {
+            isMoving = true;
+
+            SoundManager.Instance.PlaySound(SoundManager.Instance.grassWalkSound);
+        }
+        else
+        {
+            isMoving = false;
+            SoundManager.Instance.grassWalkSound.Stop();
+        }
+        lastPosition = gameObject.transform.position;
         
 
         
@@ -85,4 +101,8 @@ public class FPSController : MonoBehaviour
                     float targetFOV = Input.GetKey(KeyCode.V) ? zoomFOV : normalFOV;
                     cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFOV, zoomSpeed * Time.deltaTime);
     }
+
+    
+
+        
 }

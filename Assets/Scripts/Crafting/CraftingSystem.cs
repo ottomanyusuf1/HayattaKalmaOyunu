@@ -6,21 +6,25 @@ using UnityEngine.UI;
 public class CraftingSystem : MonoBehaviour
 {
     public GameObject craftingScreenUI;
-    public GameObject toolsScreenUI;
+    public GameObject toolsScreenUI, survivalScreenUI;
     public List<string> inventoryItemList = new List<string>();
 
     //Category Buttons
-    Button toolsBTN;
+    Button toolsBTN, survivalBTN;
     
     //Craft Buttons
     Button craftAxeBTN;
+    Button craftSwordBTN;
 
     //Requirement Text
     Text AxeReq1, AxeReq2;
+    Text SwordReq1, SwordReq2;
     public bool isOpen;
 
     //All Blueprint
-    public Blueprint AxeBLP = new Blueprint("Axe", 2, "Stone", 3, "Stick", 3);
+    public Blueprint AxeBLP = new Blueprint("Axe",1, 2, "Stone", 3, "Stick", 3);
+    public Blueprint SwordBLP = new Blueprint("Sword",1, 2, "Stone", 2, "Iron", 2);
+
 
 
 
@@ -45,24 +49,58 @@ public static CraftingSystem Instance {get; set;}
         isOpen =false;
 
         toolsBTN = craftingScreenUI.transform.Find("ToolsButton").GetComponent<Button>();
-        toolsBTN.onClick.AddListener(delegate{OpenToolsCategort();});
+        toolsBTN.onClick.AddListener(delegate{OpenToolsCategory();});
+        
+        survivalBTN = craftingScreenUI.transform.Find("SurvivalButton").GetComponent<Button>();
+        survivalBTN.onClick.AddListener(delegate{OpenSurvivalCategory();});
+        
         //AXE
         AxeReq1 = toolsScreenUI.transform.Find("Axe").transform.Find("req1").GetComponent<Text>();
         AxeReq2 = toolsScreenUI.transform.Find("Axe").transform.Find("req2").GetComponent<Text>();
 
         craftAxeBTN = toolsScreenUI.transform.Find("Axe").transform.Find("Button").GetComponent<Button>();
         craftAxeBTN.onClick.AddListener(delegate{CraftAnyItem(AxeBLP);});
+        //SWORD
+        SwordReq1 = toolsScreenUI.transform.Find("Sword").transform.Find("req1").GetComponent<Text>();
+        SwordReq2 = toolsScreenUI.transform.Find("Sword").transform.Find("req2").GetComponent<Text>();
+
+        craftSwordBTN = toolsScreenUI.transform.Find("Sword").transform.Find("Button").GetComponent<Button>();
+        craftSwordBTN.onClick.AddListener(delegate{CraftAnyItem(SwordBLP);});
+
     }
 
-    void OpenToolsCategort()
+    void OpenToolsCategory()
     {
+        survivalScreenUI.SetActive(false);
         craftingScreenUI.SetActive(false);
+
         toolsScreenUI.SetActive(true);
+    }
+    void OpenSurvivalCategory()
+    {
+        toolsScreenUI.SetActive(false);
+        craftingScreenUI.SetActive(false);
+
+        survivalScreenUI.SetActive(true);
     }
 
     void CraftAnyItem(Blueprint blueprintToCraft)
-    {
-        InventorySystem.Instance.AddToInventory(blueprintToCraft.itemName);
+    {      
+        SoundManager.Instance.PlaySound(SoundManager.Instance.craftingSound);
+        // Produce the amount of items according to the blueprint
+
+        StartCoroutine(craftedDelayForSound(blueprintToCraft));
+
+        if(blueprintToCraft.numberOfItemsToProduce ==1)
+        {
+            InventorySystem.Instance.AddToInventory(blueprintToCraft.itemName);
+        }
+        else if(blueprintToCraft.numberOfItemsToProduce ==2)
+        {
+            InventorySystem.Instance.AddToInventory(blueprintToCraft.itemName);
+            InventorySystem.Instance.AddToInventory(blueprintToCraft.itemName);
+        }
+        
 
         if(blueprintToCraft.numOfRequirements == 1)
         {
@@ -87,6 +125,17 @@ public static CraftingSystem Instance {get; set;}
         RefleshNeededItems();
     }
 
+    IEnumerator craftedDelayForSound(Blueprint blueprintToCraft)
+    {
+        yield return new WaitForSeconds(1f);
+
+        // Produce the amount of items according to the blueprint
+        for (var i =0; i < blueprintToCraft.numberOfItemsToProduce; i++)
+        {
+            InventorySystem.Instance.AddToInventory(blueprintToCraft.itemName);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -108,6 +157,7 @@ public static CraftingSystem Instance {get; set;}
         {
             craftingScreenUI.SetActive(false);
             toolsScreenUI.SetActive(false);
+            survivalScreenUI.SetActive(false);
             if(!InventorySystem.Instance.isOpen)
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -123,6 +173,7 @@ public static CraftingSystem Instance {get; set;}
     {
         int stone_count = 0;
         int stick_count = 0;
+        int iron_count = 0;
 
         inventoryItemList = InventorySystem.Instance.itemList;
 
@@ -137,6 +188,9 @@ public static CraftingSystem Instance {get; set;}
                 case"Stick":
                     stick_count += 1;
                     break;
+                case "Iron":
+                    iron_count += 1;
+                    break;
             }
         }
 
@@ -145,7 +199,7 @@ public static CraftingSystem Instance {get; set;}
     AxeReq1.text = "3 Stone[" + stone_count +"]";
     AxeReq2.text = "3 Stick[" + stick_count +"]";
     
-    if(stone_count >= 3 && stick_count >= 3)
+    if(stone_count >= 3 && stick_count >= 3 && InventorySystem.Instance.CheckSlotsAvailable(1))
     {
         craftAxeBTN.gameObject.SetActive(true);
     }
@@ -153,9 +207,18 @@ public static CraftingSystem Instance {get; set;}
     {
         craftAxeBTN.gameObject.SetActive(false);
     }
-    
-    
-    
+        //-----SWORD-----//
+    SwordReq1.text = "2 Stone[" + stone_count + "]";
+    SwordReq2.text = "2 Iron[" + iron_count + "]";
+
+    if (stone_count >= 2 && iron_count >= 2 && InventorySystem.Instance.CheckSlotsAvailable(1))
+    {
+        craftSwordBTN.gameObject.SetActive(true);
+    }
+    else
+    {
+        craftSwordBTN.gameObject.SetActive(false);
+    }
     
     }
 
