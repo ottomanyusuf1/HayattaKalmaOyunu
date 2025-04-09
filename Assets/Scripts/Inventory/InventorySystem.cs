@@ -26,6 +26,8 @@ public class InventorySystem : MonoBehaviour
     public GameObject pickupAlert;
     public Text pickupName;
     public Image pickupImage;
+
+    public List<string> itemsPickedup;
  
  
     private void Awake()
@@ -96,8 +98,11 @@ public class InventorySystem : MonoBehaviour
 
     public void AddToInventory(string ItemName)
     {
-
-        SoundManager.Instance.PlaySound(SoundManager.Instance.pickupItemSound);
+        if (SaveManager.Instance.isLoading == false)
+        {
+            SoundManager.Instance.PlaySound(SoundManager.Instance.pickupItemSound);
+        }
+        
         whatSlotToEquip = FindNextEmptySlot();
 
         itemToAdd = Instantiate(Resources.Load<GameObject>(ItemName),whatSlotToEquip.transform.position,whatSlotToEquip.transform.rotation);
