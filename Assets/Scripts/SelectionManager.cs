@@ -48,7 +48,29 @@ public class SelectionManager : MonoBehaviour
 
             InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
 
+            NPC npc = selectionTransform.GetComponent<NPC>();
 
+            if(npc && npc.playerInRange)
+            {
+                interaction_text.text = "Talk";
+                interaction_Info_UI.SetActive(true);
+
+                if (Input.GetMouseButton(0) && npc.isTalkingWithPlayer == false)
+                {
+                    npc.StartConversation();
+                }
+
+                if (DialogSystem.Instance.dialogUIActivate)
+                {
+                    interaction_Info_UI.SetActive(false);
+                    centerDotImage.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                interaction_text.text = "";
+                interaction_Info_UI.SetActive(true);
+            }
  
             if (interactable && interactable.playerInRange)
             {
@@ -87,7 +109,7 @@ public class SelectionManager : MonoBehaviour
         else
         {
             onTarget = false;
-            interaction_Info_UI.SetActive(false);
+            //interaction_Info_UI.SetActive(false);
             handIcon.gameObject.SetActive(false);
             centerDotImage.gameObject.SetActive(true);
 

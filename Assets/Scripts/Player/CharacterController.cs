@@ -42,6 +42,29 @@ public class FPSController : MonoBehaviour
     }
 
     void Update()
+    {   
+        if (DialogSystem.Instance.dialogUIActivate == false)
+        {
+            Movement();
+        }
+        
+        if(!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen && !MenuManager.Instance.isMenuOpen && !DialogSystem.Instance.dialogUIActivate)
+        {
+                    // Kamera Hareketi (Fare ile Bakış)
+                    float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+                    float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+
+                    xRotation -= mouseY;
+                    xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+                    playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+                    transform.Rotate(Vector3.up * mouseX);
+                    }
+                    // Zoom (Sağ Tık)
+                    float targetFOV = Input.GetKey(KeyCode.V) ? zoomFOV : normalFOV;
+                    cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFOV, zoomSpeed * Time.deltaTime);
+    }
+
+    public void Movement()
     {
         // Zemin kontrolü
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -86,20 +109,6 @@ public class FPSController : MonoBehaviour
         // Yerçekimi Uygula
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-        if(!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen && !MenuManager.Instance.isMenuOpen)
-        {
-                    // Kamera Hareketi (Fare ile Bakış)
-                    float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-                    float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-
-                    xRotation -= mouseY;
-                    xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-                    playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-                    transform.Rotate(Vector3.up * mouseX);
-                    }
-                    // Zoom (Sağ Tık)
-                    float targetFOV = Input.GetKey(KeyCode.V) ? zoomFOV : normalFOV;
-                    cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFOV, zoomSpeed * Time.deltaTime);
     }
 
     
