@@ -48,7 +48,7 @@ public class FPSController : MonoBehaviour
             Movement();
         }
         
-        if(!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen && !MenuManager.Instance.isMenuOpen && !DialogSystem.Instance.dialogUIActivate)
+        if(!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen && !MenuManager.Instance.isMenuOpen && !DialogSystem.Instance.dialogUIActivate && !QuestManager.Instance.isQuestMenuOpen)
         {
                     // Kamera Hareketi (Fare ile Bakış)
                     float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;

@@ -72,8 +72,10 @@ public class InventorySystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && !isOpen)
         {
  
-		      	Debug.Log("i is pressed");
             inventoryScreenUI.SetActive(true);
+            inventoryScreenUI.GetComponentInParent<Canvas>().sortingOrder = MenuManager.Instance.SetAsFront();
+
+
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             SelectionManager.Instance.DisableSelection();
@@ -98,10 +100,7 @@ public class InventorySystem : MonoBehaviour
 
     public void AddToInventory(string ItemName)
     {
-        if (SaveManager.Instance.isLoading == false)
-        {
-            SoundManager.Instance.PlaySound(SoundManager.Instance.pickupItemSound);
-        }
+       
         
         whatSlotToEquip = FindNextEmptySlot();
 
@@ -110,10 +109,13 @@ public class InventorySystem : MonoBehaviour
 
         itemList.Add(ItemName);
 
+        SoundManager.Instance.PlaySound(SoundManager.Instance.pickupItemSound);
         TriggerPickupPopOp(ItemName, itemToAdd.GetComponent<Image>().sprite);
 
         ReCalculateList();
         CraftingSystem.Instance.RefleshNeededItems();
+
+        QuestManager.Instance.RefleshQuestList();
     }
 
     void TriggerPickupPopOp(string itemName, Sprite itemSprite)
@@ -189,6 +191,7 @@ public class InventorySystem : MonoBehaviour
 
         ReCalculateList();
         CraftingSystem.Instance.RefleshNeededItems();
+        QuestManager.Instance.RefleshQuestList();
     }
 
     public void ReCalculateList()
@@ -210,5 +213,16 @@ public class InventorySystem : MonoBehaviour
     }
 
 
-    
+    public int CheckItemAmount(string name)
+    {
+        int itemCounter = 0;
+        foreach (string item in itemList)
+        {
+            if (item == name)
+            {
+                itemCounter++;
+            }
+        }
+        return itemCounter;
+    }
 }

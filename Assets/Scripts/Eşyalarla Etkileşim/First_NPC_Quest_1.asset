@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c70cbd86b3b137e4ab1773f136241ad0, type: 3}
+  m_Name: First_NPC_Quest_1
+  m_EditorClassIdentifier: 
+  initialDialog:
+  - "Merhaba,\nBen Melina yak\u0131ndaki k\xF6yde ya\u015F\u0131yorum."
+  - "Babama tav\u015Fan derisi toplamamda yard\u0131m etmem gerek."
+  - "bazen sadece hayal kr\u0131kl\u0131\u011F\u0131 gibi hissediyorum."
+  - "ama bu tav\u015Fanlar\u0131 \xF6ld\xFCremem\n\xE7ok sevimliler."
+  - "belki bana yard\u0131m edebilirsin\n\nmerak etme paras\u0131n\u0131 \xF6derim."
+  acceptOption: "Elbette yard\u0131m edebilirim."
+  acceptAnswer: "bana 7 tane tav\u015Fan derisi getirebilirseniz fazlas\u0131yla
+    yeter"
+  declineOption: "\xFCzg\xFCn\xFCm onlar\u0131 \xF6ld\xFCremem."
+  declineAnswer: "neyse denemeye de\u011Ferdi.\nE\u011Fer fikrinizi de\u011Fi\u015Ftirirseniz
+    l\xFCtfen geri gelin."
+  comebackAfterDecline: "Peki fikriniz de\u011Fi\u015Fti mi?"
+  comebackInProgress: "Yine de yeterli de\u011Fil, uzun otlata da bakmay\u0131 unutmay\u0131n."
+  comebackCompleted: "Zavall\u0131lar, s\xF6z verdi\u011Fim gibi \xF6d\xFCl\xFCn\xFCz."
+  finalWords: "Umar\u0131m bu babam\u0131 gururland\u0131r\u0131r."
+  coinReward: 25
+  rewardItem1: Stone
+  rewardItem2: Stone
+  firstRequirmentItem: Stick
+  firstRequirementAmount: 3
+  secondRequirmentItem: 
+  secondRequirementAmount: 0

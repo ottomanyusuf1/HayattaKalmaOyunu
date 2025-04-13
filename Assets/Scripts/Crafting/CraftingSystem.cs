@@ -143,8 +143,11 @@ public static CraftingSystem Instance {get; set;}
         if (Input.GetKeyDown(KeyCode.C) && !isOpen)
         {
  
-		      	Debug.Log("i is pressed");
             craftingScreenUI.SetActive(true);
+
+            craftingScreenUI.GetComponentInParent<Canvas>().sortingOrder = MenuManager.Instance.SetAsFront();
+
+
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             SelectionManager.Instance.DisableSelection();

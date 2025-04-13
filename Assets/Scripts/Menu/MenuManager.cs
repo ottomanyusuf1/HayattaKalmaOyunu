@@ -1,4 +1,5 @@
 using System.Data.Common;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class MenuManager : MonoBehaviour
@@ -14,6 +15,13 @@ public class MenuManager : MonoBehaviour
     public GameObject menu;
     
     public bool isMenuOpen;
+
+    public int currentFront = 0;
+
+    public int SetAsFront()
+    {
+        return currentFront++;
+    }
 
     private void Awake()
     {

@@ -804,6 +804,60 @@ Transform:
   - {fileID: 763123050766918408}
   m_Father: {fileID: 5368494478894048507}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2398341791858575219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4139509735477762951}
+  - component: {fileID: 8842904638518464785}
+  m_Layer: 0
+  m_Name: First_NPC_Quest_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4139509735477762951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2398341791858575219}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 164.39154, y: 274.50143, z: -21.847603}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2006956484913450923}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8842904638518464785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2398341791858575219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd7a924d8b08067458e774f52cad711a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questName: Girl in distress
+  questGiver: Melina
+  questDescription: "Melina'n\u0131n babas\u0131n\u0131 etkilemesi i\xE7in malzeme
+    toplamas\u0131na yard\u0131m edin."
+  accepted: 0
+  declined: 0
+  initialDialogCompleted: 0
+  isCompleted: 0
+  hasNoRequirements: 0
+  info: {fileID: 11400000, guid: 3533fbdaa875f2d4a8d8a3e3997af392, type: 2}
 --- !u!1 &2480869024283010583
 GameObject:
   m_ObjectHideFlags: 0
@@ -2898,6 +2952,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2006956484913450923}
   - component: {fileID: 6159350322770019076}
+  - component: {fileID: 7596000831979369670}
+  - component: {fileID: 4074369993218142309}
+  - component: {fileID: 4270385193508725407}
   m_Layer: 0
   m_Name: First_NPC
   m_TagString: Untagged
@@ -2915,7 +2972,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 36.57128, y: 1.7000008, z: 27.402414}
-  m_LocalScale: {x: 1.96, y: 1.96, z: 1.96}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3722001990890417476}
@@ -2928,6 +2985,7 @@ Transform:
   - {fileID: 716491787593764702}
   - {fileID: 5755894837074051186}
   - {fileID: 3902312722514150403}
+  - {fileID: 4139509735477762951}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6159350322770019076
@@ -2940,7 +2998,7 @@ Animator:
   m_GameObject: {fileID: 6153414364594139231}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 5771a42f8d243d74b98d6d1d905d29fc, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 836faec0e31d9b5469ca1bb86000da11, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -2952,6 +3010,68 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &7596000831979369670
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6153414364594139231}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.7955476, z: 0.3878765}
+  m_Center: {x: 0, y: 0.89085454, z: 0.028067589}
+--- !u!65 &4074369993218142309
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6153414364594139231}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.44, y: 1.8512471, z: 3.79}
+  m_Center: {x: 0, y: 0.9743763, z: 0}
+--- !u!114 &4270385193508725407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6153414364594139231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef313d1a14948364fbd0dabd703c7dc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInRange: 0
+  isTalkingWithPlayer: 0
+  quests:
+  - {fileID: 8842904638518464785}
+  currentActiveQuest: {fileID: 0}
+  activeQuestIndex: 0
+  firstTimeInteraction: 1
+  currentDialog: 0
 --- !u!1 &6234422733258158744
 GameObject:
   m_ObjectHideFlags: 0
