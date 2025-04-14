@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QuestManager : MonoBehaviour
 {
@@ -76,16 +78,40 @@ public class QuestManager : MonoBehaviour
             if (req2 != "") // if we have 2 requirements
             {
                 tRow.requirements.text = $"{req1} " + InventorySystem.Instance.CheckItemAmount(req1) +"/" + $"{req1Amount}\n" +
-               $"{req2} " + InventorySystem.Instance.CheckItemAmount(req2) +"/" + $"{req2Amount}\n";
+               $"{req2} " + InventorySystem.Instance.CheckItemAmount(req2) +"/" + $"{req2Amount}";
             }
             else // if we have only one
             {
-                tRow.requirements.text = $"{req1} " +  InventorySystem.Instance.CheckItemAmount(req1) +"/" + $"{req1Amount}\n";
+                tRow.requirements.text = $"{req1} " +  InventorySystem.Instance.CheckItemAmount(req1) +"/" + $"{req1Amount}";
+            }
+
+            if (trackedQuest.info.hasCheckpoints)
+            {
+                var existingText = tRow.requirements.text;
+                tRow.requirements.text = PrintCheckPoints(trackedQuest, existingText);
             }
  
  
         }
         
+    }
+
+    private string PrintCheckPoints(Quest trackedQuest, string existingText)
+    {
+        var finalText = existingText;
+
+        foreach (Checkpoint cp in trackedQuest.info.checkpoints)
+        {
+            if (cp.isComplated)
+            {
+                finalText = finalText + "\n" + cp.name + "[Complated]";
+            }
+            else
+            {
+                finalText = finalText + "\n" + cp.name;
+            }
+        }
+        return finalText;
     }
 
     void Update()
@@ -166,11 +192,26 @@ public class QuestManager : MonoBehaviour
 
             qRow.coinAmount.text = $"{activeQuest.info.coinReward}";
 
-            //qRow.firstReward.sprite = ;
-            qRow.firstRewardAmount.text = "";
-
-            //qRow.secondReward.sprite = "";
-            qRow.secondRewardAmount.text = "";
+           if (activeQuest.info.rewardItem1 != "")
+            {
+                qRow.firstReward.sprite = GetSpriteForitem(activeQuest.info.rewardItem1); ; 
+                qRow.firstRewardAmount.text = "";
+            }
+            else
+            {
+                qRow.firstReward.gameObject.SetActive(false);
+                qRow.firstRewardAmount.text = "";
+            }
+            if (activeQuest.info.rewardItem2 != "")
+            {
+                qRow.secondReward.sprite = GetSpriteForitem(activeQuest.info.rewardItem2); ;
+                qRow.secondRewardAmount.text = "";
+            }
+            else
+            {
+                qRow.secondReward.gameObject.SetActive(false);
+                qRow.secondRewardAmount.text = "";
+            }
         }
 
         foreach (Quest complatedQuest in allCompletedQuest)
@@ -188,15 +229,32 @@ public class QuestManager : MonoBehaviour
 
             qRow.coinAmount.text = $"{complatedQuest.info.coinReward}";
 
-            //qRow.firstReward.sprite = ;
-            qRow.firstRewardAmount.text = "";
-
-            //qRow.secondReward.sprite = "";
-            qRow.secondRewardAmount.text = "";
+            if (complatedQuest.info.rewardItem1 != "")
+            {
+                qRow.firstReward.sprite = GetSpriteForitem(complatedQuest.info.rewardItem1); ; 
+                qRow.firstRewardAmount.text = "";
+            }
+            else
+            {
+                qRow.firstReward.gameObject.SetActive(false);
+                qRow.firstRewardAmount.text = "";
+            }
+            if (complatedQuest.info.rewardItem2 != "")
+            {
+                qRow.secondReward.sprite = GetSpriteForitem(complatedQuest.info.rewardItem2); ;
+                qRow.secondRewardAmount.text = "";
+            }
+            else
+            {
+                qRow.secondReward.gameObject.SetActive(false);
+                qRow.secondRewardAmount.text = "";
+            }
         }
     }
-    
 
-    
-
+    private Sprite GetSpriteForitem(string item)
+    {
+        var itemToGet = Resources.Load<GameObject>(item);
+        return itemToGet.GetComponent<Image>().sprite;
+    }
 }

@@ -195,17 +195,62 @@ public class NPC : MonoBehaviour
                 secondItemCounter++;
             }
         }
+
+        SetQuestHasCheckpoints(currentActiveQuest);
+        
+        bool allCheckpointsComplated = false;
+        if (currentActiveQuest.info.hasCheckpoints)
+        {
+            foreach ( Checkpoint cp in currentActiveQuest.info.checkpoints)
+            {
+                if (cp.isComplated == false)
+                {
+                    allCheckpointsComplated = false; // eğer bir tanesi yanlış ise yanlış döndürür
+                    break;
+                }
+
+                allCheckpointsComplated = true;
+            }
+        }
+
+
  
         if (firstItemCounter >= firstRequiredAmount && secondItemCounter >= secondRequiredAmount)
         {
-            return true;
+            if (currentActiveQuest.info.hasCheckpoints)
+            {
+                if (allCheckpointsComplated)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
         }
         else
         {
             return false;
         }
     }
- 
+
+    private void SetQuestHasCheckpoints(Quest activeQuest)
+    {
+         if (activeQuest.info.checkpoints.Count > 0)
+        {
+            activeQuest.info.hasCheckpoints = true;
+        }
+        else
+        {
+            activeQuest.info.hasCheckpoints = false;
+        }
+    }
+
     private void StartQuestInitialDialog()
     {
         DialogSystem.Instance.OpenDialogUI();

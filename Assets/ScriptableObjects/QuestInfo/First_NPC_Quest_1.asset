@@ -35,3 +35,6 @@ MonoBehaviour:
   firstRequirementAmount: 3
   secondRequirmentItem: 
   secondRequirementAmount: 0
+  hasCheckpoints: 1
+  checkpoints:
+  - {fileID: 11400000, guid: 15707868afa5f774eba67269c59b066e, type: 2}
