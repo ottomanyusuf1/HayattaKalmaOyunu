@@ -46,7 +46,7 @@ public class SelectionManager : MonoBehaviour
         {
             var selectionTransform = hit.transform;
 
-            InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
+            
 
             NPC npc = selectionTransform.GetComponent<NPC>();
 
@@ -66,30 +66,8 @@ public class SelectionManager : MonoBehaviour
                     centerDotImage.gameObject.SetActive(false);
                 }
             }
-            else
-            {
-                interaction_text.text = "";
-                interaction_Info_UI.SetActive(true);
-            }
 
-            Animal animal = selectionTransform.GetComponent<Animal>();
-
-            if (animal && animal.playerInRange)
-            {
-                interaction_text.text = animal.animalName;
-                interaction_Info_UI.SetActive(true);
-
-                if (Input.GetMouseButtonDown(0) && EquipSystem.Instance.IsHoldingWeapon())
-                {
-                    StartCoroutine(DealDamageTo(animal, 0.3f, EquipSystem.Instance.GetWeaponDamage()));
-                }
-            }
-            else
-                {
-                    interaction_text.text = "";
-                    interaction_Info_UI.SetActive(false);
-                }
-
+            InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
  
             if (interactable && interactable.playerInRange)
             {
@@ -97,43 +75,144 @@ public class SelectionManager : MonoBehaviour
                 selectedObject = interactable.gameObject;
                 interaction_text.text = interactable.GetItemName();
                 interaction_Info_UI.SetActive(true);
-              
-                if(interactable.CompareTag("pickable"))
+
+                centerDotImage.gameObject.SetActive(false);
+                handIcon.gameObject.SetActive(true);
+
+                handIsVisible = true;               
+            }
+
+            ChoppableTree choppableTree = hit.transform.GetComponentInParent<ChoppableTree>();
+
+
+            if (choppableTree && choppableTree.playerInRange)
+            {
+                choppableTree.canBeChopped = true;
+                selectedTree = choppableTree.gameObject;
+                chopHolder.gameObject.SetActive(true);
+            }
+            else
+            {
+                if (selectedTree != null)
                 {
+                    selectedTree.gameObject.GetComponent<ChoppableTree>().canBeChopped = false;
+                    selectedTree = null;
+                    chopHolder.gameObject.SetActive(false);
+                }
+            }
+
+            Animal animal = selectionTransform.GetComponent<Animal>();
+
+            if (animal && animal.playerInRange)
+            {
+                if(animal.isDead)
+                {
+                    interaction_text.text = "Loot";
+                    interaction_Info_UI.SetActive(true);
+
                     centerDotImage.gameObject.SetActive(false);
                     handIcon.gameObject.SetActive(true);
 
                     handIsVisible = true;
+
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        Lootable lootable = animal.GetComponent<Lootable>();
+                        Loot(lootable);
+                    }
                 }
                 else
                 {
+                    interaction_text.text = animal.animalName;
+                    interaction_Info_UI.SetActive(true);
+
+                    centerDotImage.gameObject.SetActive(false);
                     handIcon.gameObject.SetActive(false);
-                    centerDotImage.gameObject.SetActive(true);
 
                     handIsVisible = false;
+
+                    if (Input.GetMouseButtonDown(0) && EquipSystem.Instance.IsHoldingWeapon() && EquipSystem.Instance.IsThereASwingLock() == false)
+                    {
+                        StartCoroutine(DealDamageTo(animal, 0.3f, EquipSystem.Instance.GetWeaponDamage()));
+                    }
+                }
+                
+            }
+            
+            if (!interactable && !animal)
+            {
+                onTarget = false;
+                handIsVisible = false;
+
+                centerDotImage.gameObject.SetActive(true);
+                handIcon.gameObject.SetActive(false);
+            }
+            if (!npc && !interactable && !animal && !choppableTree)
+            {
+                interaction_text.text = "";
+                interaction_Info_UI.SetActive(false);
+            }
+
+            
+        }
+        
+    }
+
+    private void Loot(Lootable lootable)
+    {
+        Debug.Log("Loot başlatıldı");
+
+        if (lootable.wasLootCalculated == false)
+        {
+            List<LootRecieved> recievedLoot = new List<LootRecieved>();
+
+            foreach (LootPossibility loot in lootable.possibleLoot)
+            
+            // 0 -> 1 (50% drop rate) 1/2 0,1
+            // -1 -> 1 (30% drop rate) 1/3  -1, 0, 1
+            // -2 -> 1 (25% drop rate) 1/4  -2, -1, 0, 1
+            // -3 -> 1 (20% drop rate) 1/5  -3, -2, -1, 0, 1
+
+            // -3 -> 2 (1/6 1/6  1/7) -3, -2, -1, 0, 1,(%17) 2(17%) (%33)
+
+            
+            { 
+                var lootAmount = UnityEngine.Random.Range(loot.amountMin, loot.amountMax+1);
+                if (lootAmount > 0)
+                {
+                    LootRecieved lt = new LootRecieved();
+                    lt.item = loot.item;
+                    lt.amount = lootAmount;
+
+                    recievedLoot.Add(lt);
                 }
             }
-
-            else 
-            { 
-                onTarget = false;
-                interaction_Info_UI.SetActive(false);
-                handIcon.gameObject.SetActive(false);
-                centerDotImage.gameObject.SetActive(true);
-
-                handIsVisible = false;
-            }
- 
+            lootable.finalLoot = recievedLoot;
+            lootable.wasLootCalculated = true;
         }
-        else
+
+        // Spawning the loot on the ground
+        Vector3 lootSpawnPosition = lootable.gameObject.transform.position;
+
+        foreach (LootRecieved lootRecieved in lootable.finalLoot)
         {
-            onTarget = false;
-            //interaction_Info_UI.SetActive(false);
-            handIcon.gameObject.SetActive(false);
-            centerDotImage.gameObject.SetActive(true);
-
-            handIsVisible = false;
+            for (int i =0; i< lootRecieved.amount; i++)
+            {
+                    GameObject lootSpawn = Instantiate(Resources.Load<GameObject>(lootRecieved.item.name+"_Model"),
+                    new Vector3(lootSpawnPosition.x, lootSpawnPosition.y+0.2f, lootSpawnPosition.z),
+                    Quaternion.Euler(0,0,0));
+            }
         }
+
+        // If we want the blood puddle to stay on the ground
+
+        if (lootable.GetComponent<Animal>())
+        {
+            lootable.GetComponent<Animal>().bloodPuddle.transform.SetParent(lootable.transform.parent);
+        }
+
+        // Destroy Lootad body
+        Destroy(lootable.gameObject);
     }
 
     IEnumerator DealDamageTo(Animal animal, float delay, int damage)
@@ -159,3 +238,4 @@ public class SelectionManager : MonoBehaviour
         interaction_Info_UI.SetActive(true);
     }
 }
+

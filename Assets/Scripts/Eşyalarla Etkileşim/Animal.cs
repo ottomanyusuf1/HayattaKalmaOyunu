@@ -18,7 +18,7 @@ public class Animal : MonoBehaviour
     public bool isDead;
 
     [SerializeField] ParticleSystem bloodSplashParticles;
-    [SerializeField] GameObject bloodPuddle;
+    public GameObject bloodPuddle;
 
     enum AnimalType
     {
