@@ -15,20 +15,24 @@ public class CraftingSystem : MonoBehaviour
     //Craft Buttons
     Button craftAxeBTN;
     Button craftSwordBTN;
+    Button craftStorageBoxBTN;
 
     //Requirement Text
     Text AxeReq1, AxeReq2;
     Text SwordReq1, SwordReq2;
+    Text StorageReq1, StorageReq2;
     public bool isOpen;
 
     //All Blueprint
     public Blueprint AxeBLP = new Blueprint("Axe",1, 2, "Stone", 3, "Stick", 3);
     public Blueprint SwordBLP = new Blueprint("Sword",1, 2, "Stone", 2, "Iron", 2);
+    public Blueprint StorageBoxBLP = new Blueprint("StorageBox", 1, 2, "Stick", 5, "Iron", 1);
 
 
 
 
-public static CraftingSystem Instance {get; set;}
+
+    public static CraftingSystem Instance {get; set;}
 
     private void Awake()
     {
@@ -66,6 +70,14 @@ public static CraftingSystem Instance {get; set;}
 
         craftSwordBTN = toolsScreenUI.transform.Find("Sword").transform.Find("Button").GetComponent<Button>();
         craftSwordBTN.onClick.AddListener(delegate{CraftAnyItem(SwordBLP);});
+
+        // STORAGE BOX
+        StorageReq1 = survivalScreenUI.transform.Find("StorageBox").transform.Find("req1").GetComponent<Text>();
+        StorageReq2 = survivalScreenUI.transform.Find("StorageBox").transform.Find("req2").GetComponent<Text>();
+
+        craftStorageBoxBTN = survivalScreenUI.transform.Find("StorageBox").transform.Find("Button").GetComponent<Button>();
+        craftStorageBoxBTN.onClick.AddListener(delegate { CraftAnyItem(StorageBoxBLP); });
+
 
     }
 
@@ -140,7 +152,7 @@ public static CraftingSystem Instance {get; set;}
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.C) && !isOpen)
+        if (Input.GetKeyDown(KeyCode.C) && !isOpen && !ConstructionManager.Instance.inConstructionMode)
         {
  
             craftingScreenUI.SetActive(true);
@@ -222,6 +234,19 @@ public static CraftingSystem Instance {get; set;}
     {
         craftSwordBTN.gameObject.SetActive(false);
     }
+    //-----STORAGE BOX-----//
+    StorageReq1.text = "5 Wood[" + stick_count + "]";
+    StorageReq2.text = "1 Iron[" + iron_count + "]";
+
+    if (stick_count >= 5 && iron_count >= 1 && InventorySystem.Instance.CheckSlotsAvailable(1))
+    {
+        craftStorageBoxBTN.gameObject.SetActive(true);
+    }
+    else
+    {
+        craftStorageBoxBTN.gameObject.SetActive(false);
+    }
+
     
     }
 

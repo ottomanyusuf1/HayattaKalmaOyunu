@@ -21,8 +21,9 @@ public class EquipableItem : MonoBehaviour
         InventorySystem.Instance.isOpen == false && 
         CraftingSystem.Instance.isOpen == false &&
         swingWait == false &&
-        SelectionManager.Instance.handIsVisible == false)
+        SelectionManager.Instance.handIsVisible == false && !ConstructionManager.Instance.inConstructionMode)
         {
+            
             swingWait = true;  
             StartCoroutine(SwingSoundDelay());
             animator.SetTrigger("hit");
@@ -42,7 +43,7 @@ public class EquipableItem : MonoBehaviour
         swingWait = false;
     }
 
-    void GetHit()
+    public void GetHit()
     {
         GameObject selectedTree = SelectionManager.Instance.selectedTree;
 

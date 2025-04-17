@@ -20,7 +20,8 @@ public class SelectionManager : MonoBehaviour
 
     public GameObject selectedTree;
     public GameObject chopHolder;
- 
+    private GameObject selectedStorageBox;
+
     private void Start()
     {
         onTarget = false; 
@@ -67,21 +68,6 @@ public class SelectionManager : MonoBehaviour
                 }
             }
 
-            InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
- 
-            if (interactable && interactable.playerInRange)
-            {
-                onTarget = true;
-                selectedObject = interactable.gameObject;
-                interaction_text.text = interactable.GetItemName();
-                interaction_Info_UI.SetActive(true);
-
-                centerDotImage.gameObject.SetActive(false);
-                handIcon.gameObject.SetActive(true);
-
-                handIsVisible = true;               
-            }
-
             ChoppableTree choppableTree = hit.transform.GetComponentInParent<ChoppableTree>();
 
 
@@ -98,6 +84,42 @@ public class SelectionManager : MonoBehaviour
                     selectedTree.gameObject.GetComponent<ChoppableTree>().canBeChopped = false;
                     selectedTree = null;
                     chopHolder.gameObject.SetActive(false);
+                }
+            }
+
+            InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
+ 
+            if (interactable && interactable.playerInRange)
+            {
+                onTarget = true;
+                selectedObject = interactable.gameObject;
+                interaction_text.text = interactable.GetItemName();
+                interaction_Info_UI.SetActive(true);
+
+                centerDotImage.gameObject.SetActive(false);
+                handIcon.gameObject.SetActive(true);
+
+                handIsVisible = true;               
+            }
+
+            StorageBox storageBox = selectionTransform.GetComponent<StorageBox>();
+            if (storageBox && storageBox.playerInRange && PlacementSystem.Instance.inPlacementMode == false)
+            {
+                interaction_text.text = "Open";
+                interaction_Info_UI.SetActive(true);
+
+                selectedStorageBox = storageBox.gameObject;
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    StorageManager.Instance.OpenBox(storageBox);
+                }
+            }
+            else
+            {
+                if (selectedStorageBox != null)
+                {
+                    selectedStorageBox = null;
                 }
             }
 
@@ -147,7 +169,7 @@ public class SelectionManager : MonoBehaviour
                 centerDotImage.gameObject.SetActive(true);
                 handIcon.gameObject.SetActive(false);
             }
-            if (!npc && !interactable && !animal && !choppableTree)
+            if (!npc && !interactable && !animal && !choppableTree && !storageBox)
             {
                 interaction_text.text = "";
                 interaction_Info_UI.SetActive(false);

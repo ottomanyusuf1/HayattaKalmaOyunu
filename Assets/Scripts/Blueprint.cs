@@ -14,7 +14,7 @@ public class Blueprint
 
     public int numberOfItemsToProduce;
 
-    public Blueprint(string name,int producedItems, int reqNUM, string R1, int R1num, string R2, int R2num)
+    public Blueprint(string name, int producedItems, int reqNUM, string R1, int R1num, string R2, int R2num)
     {
         itemName = name;
 

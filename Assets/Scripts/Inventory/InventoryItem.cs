@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,6 +32,8 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private GameObject itemPendingEquipping;
     public bool isInsideQuickSlot;
     public bool isSelected;
+    public bool isUseable;
+    
  
  
     private void Start()
@@ -83,12 +86,21 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
             if (isEquippable && isInsideQuickSlot == false && EquipSystem.Instance.CheckIfFull() == false)
             {
-            EquipSystem.Instance.AddToQuickSlots(gameObject);
-            isInsideQuickSlot = true;
+                EquipSystem.Instance.AddToQuickSlots(gameObject);
+                isInsideQuickSlot = true;
+            }
+
+            if (isUseable)
+            {
+                
+                gameObject.SetActive(false);
+                UseItem();
             }
         }       
     }
- 
+
+    
+
     // Triggered when the mouse button is released over the item that has this script.
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -100,6 +112,50 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 InventorySystem.Instance.ReCalculateList();
                 CraftingSystem.Instance.RefleshNeededItems();
             }
+
+        }  
+    }
+
+    private void UseItem()
+    {
+        itemInfoUI.SetActive(false);
+
+        InventorySystem.Instance.isOpen = false;
+        InventorySystem.Instance.inventoryScreenUI.SetActive(false);
+
+        CraftingSystem.Instance.isOpen = false;
+        CraftingSystem.Instance.craftingScreenUI.SetActive(false);
+        CraftingSystem.Instance.toolsScreenUI.SetActive(false);
+        CraftingSystem.Instance.survivalScreenUI.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        SelectionManager.Instance.EnableSelection();
+        SelectionManager.Instance.enabled = true;
+
+        switch (gameObject.name)
+        {
+            case "Foundation(clone)":
+                ConstructionManager.Instance.itemToBeDestroyed = gameObject;
+                ConstructionManager.Instance.ActivateConstructionPlacement("FoundationModel");
+                break;
+            case "Wall(clone)":
+                ConstructionManager.Instance.itemToBeDestroyed = gameObject;
+                ConstructionManager.Instance.ActivateConstructionPlacement("WallModel");
+                break;  
+            case "StorageBox(clone)":
+                PlacementSystem.Instance.inventoryItemToDestory = gameObject;
+                PlacementSystem.Instance.ActivatePlacementMode("StorageBoxModel");
+                break;
+            case "StorageBox":
+                PlacementSystem.Instance.inventoryItemToDestory = gameObject;
+                PlacementSystem.Instance.ActivatePlacementMode("StorageBoxModel");
+                break;         
+            default:
+                // do nothing
+                break;        
+
         }
     }
  

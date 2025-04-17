@@ -26,6 +26,7 @@ public class FPSController : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
     private float xRotation = 0f;
+    float YRotation = 0f;
     private float currentSpeed;
     private Camera cam;
     private PlayerState playerState;
@@ -43,21 +44,27 @@ public class FPSController : MonoBehaviour
 
     void Update()
     {   
-        if (DialogSystem.Instance.dialogUIActivate == false)
+        if (DialogSystem.Instance.dialogUIActivate == false && StorageManager.Instance.storageUIOpen == false)
         {
             Movement();
         }
         
-        if(!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen && !MenuManager.Instance.isMenuOpen && !DialogSystem.Instance.dialogUIActivate && !QuestManager.Instance.isQuestMenuOpen)
+        if(!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen && !MenuManager.Instance.isMenuOpen && !DialogSystem.Instance.dialogUIActivate && !QuestManager.Instance.isQuestMenuOpen && !StorageManager.Instance.storageUIOpen)
         {
-                    // Kamera Hareketi (Fare ile Bakış)
-                    float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+                     float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
                     float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-
+                
+                    //control rotation around x axis (Look up and down)
                     xRotation -= mouseY;
+                
+                    //we clamp the rotation so we cant Over-rotate (like in real life)
                     xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-                    playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-                    transform.Rotate(Vector3.up * mouseX);
+                
+                    //control rotation around y axis (Look up and down)
+                    YRotation += mouseX;
+                
+                    //applying both rotations
+                    transform.localRotation = Quaternion.Euler(xRotation, YRotation, 0f);
                     }
                     // Zoom (Sağ Tık)
                     float targetFOV = Input.GetKey(KeyCode.V) ? zoomFOV : normalFOV;
