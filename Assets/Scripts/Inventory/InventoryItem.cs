@@ -127,6 +127,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         CraftingSystem.Instance.craftingScreenUI.SetActive(false);
         CraftingSystem.Instance.toolsScreenUI.SetActive(false);
         CraftingSystem.Instance.survivalScreenUI.SetActive(false);
+        CraftingSystem.Instance.refineScreenUI.SetActive(false);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -144,14 +145,14 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 ConstructionManager.Instance.itemToBeDestroyed = gameObject;
                 ConstructionManager.Instance.ActivateConstructionPlacement("WallModel");
                 break;  
-            case "StorageBox(clone)":
+            case "StorageBox(Clone)":
                 PlacementSystem.Instance.inventoryItemToDestory = gameObject;
                 PlacementSystem.Instance.ActivatePlacementMode("StorageBoxModel");
                 break;
-            case "StorageBox":
+            case "Campfire(Clone)":
                 PlacementSystem.Instance.inventoryItemToDestory = gameObject;
-                PlacementSystem.Instance.ActivatePlacementMode("StorageBoxModel");
-                break;         
+                PlacementSystem.Instance.ActivatePlacementMode("CampfireModel");
+                break;       
             default:
                 // do nothing
                 break;        

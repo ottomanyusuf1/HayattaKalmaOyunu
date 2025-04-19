@@ -67,6 +67,8 @@ public class ChoppableTree : MonoBehaviour
 
         GameObject brokenTree = Instantiate(Resources.Load<GameObject>("ChoppedTree"),
             new Vector3(treePosition.x, treePosition.y+4, treePosition.z), Quaternion.Euler(0,0,0));
+
+        brokenTree.transform.SetParent(transform.parent.transform.parent.transform.parent);
     }
 
     void Update()

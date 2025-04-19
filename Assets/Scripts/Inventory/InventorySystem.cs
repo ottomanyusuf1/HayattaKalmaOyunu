@@ -71,8 +71,17 @@ public class InventorySystem : MonoBehaviour
  
         if (Input.GetKeyDown(KeyCode.E) && !isOpen && !ConstructionManager.Instance.inConstructionMode)
         {
- 
-            inventoryScreenUI.SetActive(true);
+            OpenUI(); 
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && isOpen)
+        {
+            CloseUI();
+        }
+    }
+
+    public void OpenUI()
+    {
+        inventoryScreenUI.SetActive(true);
             inventoryScreenUI.GetComponentInParent<Canvas>().sortingOrder = MenuManager.Instance.SetAsFront();
 
 
@@ -81,12 +90,12 @@ public class InventorySystem : MonoBehaviour
             SelectionManager.Instance.DisableSelection();
             SelectionManager.Instance.GetComponent<SelectionManager>().enabled = false;
             isOpen = true;
- 
-        }
-        else if (Input.GetKeyDown(KeyCode.E) && isOpen)
-        {
-            inventoryScreenUI.SetActive(false);
-            if(!CraftingSystem.Instance.isOpen)
+    }
+
+    public void CloseUI()
+    {
+        inventoryScreenUI.SetActive(false);
+            if(!CraftingSystem.Instance.isOpen && !StorageManager.Instance.storageUIOpen && !CampfireUIManager.Instance.isUiOpen)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
@@ -94,7 +103,6 @@ public class InventorySystem : MonoBehaviour
                 SelectionManager.Instance.GetComponent<SelectionManager>().enabled = true;
             }
             isOpen = false;
-        }
     }
  
 
