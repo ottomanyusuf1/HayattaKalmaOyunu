@@ -29,8 +29,8 @@ MonoBehaviour:
   comebackCompleted: "Zavall\u0131lar, s\xF6z verdi\u011Fim gibi \xF6d\xFCl\xFCn\xFCz."
   finalWords: "Umar\u0131m bu babam\u0131 gururland\u0131r\u0131r."
   coinReward: 25
-  rewardItem1: Stone
-  rewardItem2: Stone
+  rewardItem1: apple
+  rewardItem2: apple
   firstRequirmentItem: Rabbit Hide
   firstRequirementAmount: 5
   secondRequirmentItem: 
