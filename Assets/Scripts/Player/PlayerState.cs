@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -25,6 +26,14 @@ public class PlayerState : MonoBehaviour
     public float currentHydrationPersent;
     public float maxHydrationPersent;
     public bool isHdrationActive;
+
+    // ------- Player Oxygen ----- //
+    public float currentOxygenPercent;
+    public float maxOxygenPercent = 100;
+    public float oxygenDecreasedPerSecond = 5f;
+    private float oxygenTimer = 0f;
+    private float decreaseInterval = 1f;
+    public float outOfAirDamagePerSecond = 5f;
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -43,6 +52,8 @@ public class PlayerState : MonoBehaviour
         currentCalories = maxCalories;
         currentHydrationPersent = maxHydrationPersent;
 
+        currentOxygenPercent = maxOxygenPercent;
+
         StartCoroutine(decreaseHydration());
     }
 
@@ -58,6 +69,18 @@ public class PlayerState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (playerBody.GetComponent<FPSController>().isUnderwater)
+        {
+            oxygenTimer += Time.deltaTime;
+
+            if (oxygenTimer >= decreaseInterval)
+            {
+                DecreaseOxygen();
+                oxygenTimer = 0;
+            }
+        }
+
         distanceTravelled += Vector3.Distance(playerBody.transform.position, lastPosition);
         lastPosition = playerBody.transform.position;
 
@@ -77,8 +100,20 @@ public class PlayerState : MonoBehaviour
         }
     }
 
+    private void DecreaseOxygen()
+    {
+        currentOxygenPercent -= oxygenDecreasedPerSecond * decreaseInterval;
+
+        if (currentOxygenPercent < 0)
+        {
+            currentOxygenPercent =0;
+            setHealth(currentHealth - outOfAirDamagePerSecond);
+        }
+    }
+
     public void setHealth(float newHealth)
     {
+
         currentHealth = newHealth;
     }
 

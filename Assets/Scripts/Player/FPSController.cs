@@ -8,7 +8,8 @@ public class FPSController : MonoBehaviour
     public float walkSpeed = 6f;
     public float sprintSpeed = 12f;
     public float jumpHeight = 2f;
-    public float gravity = -9.81f;
+    public float gravity;
+    public float walkingGravity = -9.81f -2; 
     public CharacterController controller;
 
     [Header("Kamera Ayarları")]
@@ -33,6 +34,11 @@ public class FPSController : MonoBehaviour
 
     private Vector3 lastPosition = new Vector3 (0f, 0f,0f);
     public bool isMoving;
+    
+    // Swimming
+    public bool isSwimming;
+    public bool isUnderwater;
+    public float swimmingGravity = -0.5f;
 
     
     void Start()
@@ -73,6 +79,22 @@ public class FPSController : MonoBehaviour
 
     public void Movement()
     {
+        if (isSwimming)
+        {
+            if (isUnderwater)
+            {
+                gravity = swimmingGravity;
+            }
+            else
+            {
+                velocity.y = 0;
+            }
+            
+        }
+        else
+        {
+            gravity = walkingGravity;
+        }
         // Zemin kontrolü
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (isGrounded && velocity.y < 0)
