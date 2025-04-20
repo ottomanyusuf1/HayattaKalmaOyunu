@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c70cbd86b3b137e4ab1773f136241ad0, type: 3}
+  m_Name: NPC2_QUEST_1
+  m_EditorClassIdentifier: 
+  initialDialog:
+  - "Merhava yabanc\u0131 ben Recep.\nK\xF6y\xFCn mezarc\u0131s\u0131y\u0131m."
+  - "Mezarl\u0131\u011F\u0131n etraf\u0131ndaki ay\u0131lar\u0131n derileri laz\u0131m
+    yard\u0131m edebilirmisin."
+  acceptOption: "Elbette yard\u0131m edebilirim."
+  acceptAnswer: "Bana 5 tane ay\u0131 derisi getirebilir misin ?"
+  declineOption: "Bunu yapabilece\u011Fimi sanm\u0131yorum."
+  declineAnswer: "Fikrin de\u011Fi\u015Firse ben burday\u0131m."
+  comebackAfterDecline: "Tekrar merhaba. \nYard\u0131ma m\u0131 geldin ?"
+  comebackInProgress: "5 tane demi\u015Ftim bunlar\u0131 alamam."
+  comebackCompleted: "Te\u015Fekk\xFCrler buda \xF6d\xFCl\xFCn."
+  finalWords: "K\xF6yl\xFCler bu derilere bay\u0131lacak."
+  coinReward: 50
+  rewardItem1: Stone
+  rewardItem2: Cooked Meat
+  firstRequirmentItem: Bear Hide
+  firstRequirementAmount: 5
+  secondRequirmentItem: 
+  secondRequirementAmount: 0
+  hasCheckpoints: 0
+  checkpoints: []

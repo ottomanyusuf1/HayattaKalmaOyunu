@@ -19,10 +19,10 @@ MonoBehaviour:
   - "ama bu tav\u015Fanlar\u0131 \xF6ld\xFCremem\n\xE7ok sevimliler."
   - "belki bana yard\u0131m edebilirsin\n\nmerak etme paras\u0131n\u0131 \xF6derim."
   acceptOption: "Elbette yard\u0131m edebilirim."
-  acceptAnswer: "bana 7 tane tav\u015Fan derisi getirebilirseniz fazlas\u0131yla
+  acceptAnswer: "bana 5 tane tav\u015Fan derisi getirebilirseniz fazlas\u0131yla
     yeter"
-  declineOption: "\xFCzg\xFCn\xFCm onlar\u0131 \xF6ld\xFCremem."
-  declineAnswer: "neyse denemeye de\u011Ferdi.\nE\u011Fer fikrinizi de\u011Fi\u015Ftirirseniz
+  declineOption: "\xDCzg\xFCn\xFCm onlar\u0131 \xF6ld\xFCremem."
+  declineAnswer: "Neyse denemeye de\u011Ferdi.\nE\u011Fer fikrinizi de\u011Fi\u015Ftirirseniz
     l\xFCtfen geri gelin."
   comebackAfterDecline: "Peki fikriniz de\u011Fi\u015Fti mi?"
   comebackInProgress: "Yine de yeterli de\u011Fil, uzun otlata da bakmay\u0131 unutmay\u0131n."
@@ -31,8 +31,8 @@ MonoBehaviour:
   coinReward: 25
   rewardItem1: Stone
   rewardItem2: Stone
-  firstRequirmentItem: Stick
-  firstRequirementAmount: 3
+  firstRequirmentItem: Rabbit Hide
+  firstRequirementAmount: 5
   secondRequirmentItem: 
   secondRequirementAmount: 0
   hasCheckpoints: 1
