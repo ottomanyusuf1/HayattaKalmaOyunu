@@ -164,7 +164,7 @@ public class CraftingSystem : MonoBehaviour
         // Produce the amount of items according to the blueprint
         for (var i =0; i < blueprintToCraft.numberOfItemsToProduce; i++)
         {
-            InventorySystem.Instance.AddToInventory(blueprintToCraft.itemName);
+            InventorySystem.Instance.AddToInventory(blueprintToCraft.itemName, true);
         }
     }
 
@@ -186,6 +186,8 @@ public class CraftingSystem : MonoBehaviour
             SelectionManager.Instance.GetComponent<SelectionManager>().enabled = false;
 
             isOpen = true;
+
+            RefleshNeededItems();
  
         }
         else if (Input.GetKeyDown(KeyCode.C) && isOpen)

@@ -53,33 +53,76 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         var tempItemReference = itemBeingDragged;
  
         itemBeingDragged = null;
- 
-        if (transform.parent == startParent || transform.parent == transform.root)
+
+        // Dragged item outside of inventory
+        if (tempItemReference.transform.parent == tempItemReference.transform.root)
         {
-            // Hide the icon of the item at this point
+            // Hide the icon of the item at this point (Drop into the world)
             tempItemReference.SetActive(false);
 
             AlertDialogManager dialogManager = FindObjectOfType<AlertDialogManager>();
 
-            dialogManager.ShowDialog("Do you want to drop this item?", (response)=>  {
+            dialogManager.ShowDialog("Do you want to drop this item?", (response)=>  
+            {
                 if (response)
                 {
                     DropItemIntoTheWorld(tempItemReference);
                 }
                 else
                 {
-                    transform.position = startPosition;
-                    transform.SetParent(startParent);
-
-                    tempItemReference.SetActive(true);
+                   CancelDragging(tempItemReference);
                 }
             
             }); 
         }
- 
+        // dropped in the same slot
+        if (tempItemReference.transform.parent == startParent)
+        {
+            CancelDragging(tempItemReference);
+        }
+        // dropped in another slot
+        if (tempItemReference.transform.parent != tempItemReference.transform.root
+            && tempItemReference.transform.parent != startParent)
+        {
+            // another slot did not accepted item (pribably different item or limit exceded fot stack)
+            if (tempItemReference.transform.parent.childCount > 2)
+            {
+                CancelDragging(tempItemReference);
+                Debug.Log("Was not accepted into this slot");
+            }
+            else // ıtem vwas mowed another slot  
+            {
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    DivideStack(tempItemReference);
+                }
+                Debug.Log("Should be moved to another slot");
+            }
+        }
+
         Debug.Log("OnEndDrag");
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
+    }
+
+    private void DivideStack(GameObject tempItemReference)
+    {
+        InventoryItem item = tempItemReference.GetComponent<InventoryItem>();
+        // check if item/ stack has move than 1 item
+        if (item.amountInInventory > 1)
+        {
+            // seperate 1 item into a different
+            item.amountInInventory -= 1;
+            InventorySystem.Instance.AddToInventory(item.thisName, false); // false because we dont want to stack item
+        }
+    }
+
+    void CancelDragging(GameObject tempItemReference)
+    {
+        transform.position = startPosition;
+        transform.SetParent(startParent);
+
+        tempItemReference.SetActive(true);
     }
 
     [Obsolete]

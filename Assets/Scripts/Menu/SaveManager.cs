@@ -300,7 +300,7 @@ public class SaveManager : MonoBehaviour
         // Setting the inventory content
         foreach (string item in playerData.inventoryContent)
         {
-            InventorySystem.Instance.AddToInventory(item);
+            InventorySystem.Instance.AddToInventory(item, true);
         }
 
         // Setting the quick slots content

@@ -50,14 +50,20 @@ public class FPSController : MonoBehaviour
 
     void Update()
     {   
-        if (DialogSystem.Instance.dialogUIActivate == false && StorageManager.Instance.storageUIOpen == false && CampfireUIManager.Instance.isUiOpen == false)
+        //if (DialogSystem.Instance.dialogUIActivate == false && StorageManager.Instance.storageUIOpen == false && CampfireUIManager.Instance.isUiOpen == false)
+       // {
+      //      Movement();
+       // }
+        
+        if (MovmentManager.Instance.canMove)
         {
             Movement();
         }
         
         if(!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen && !MenuManager.Instance.isMenuOpen && !DialogSystem.Instance.dialogUIActivate && !QuestManager.Instance.isQuestMenuOpen && !StorageManager.Instance.storageUIOpen && !CampfireUIManager.Instance.isUiOpen)
         {
-                     float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+                if (MovmentManager.Instance.canLookAround){
+                    float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
                     float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
                 
                     //control rotation around x axis (Look up and down)
@@ -75,6 +81,7 @@ public class FPSController : MonoBehaviour
                     // Zoom (Sağ Tık)
                     float targetFOV = Input.GetKey(KeyCode.V) ? zoomFOV : normalFOV;
                     cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFOV, zoomSpeed * Time.deltaTime);
+                }
     }
 
     public void Movement()

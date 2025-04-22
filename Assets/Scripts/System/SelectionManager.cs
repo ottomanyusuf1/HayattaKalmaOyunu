@@ -48,6 +48,27 @@ public class SelectionManager : MonoBehaviour
         {
             var selectionTransform = hit.transform;
 
+            // Shop System
+            ShopKeeper shop = selectionTransform.GetComponent<ShopKeeper>();
+
+            if (shop && shop.playerInRange)
+            {
+                if (shop.isTalkingWithPlayer == false)
+                {
+                    interaction_text.text = "Talk";
+                    interaction_Info_UI.SetActive(true);
+                }
+                else
+                {
+                    interaction_text.text = "";
+                    interaction_Info_UI.SetActive(false);
+                }
+
+                if (Input.GetMouseButtonDown(0) && shop.isTalkingWithPlayer == false)
+                {
+                    shop.Talk();
+                }
+            }
             
 
             NPC npc = selectionTransform.GetComponent<NPC>();
@@ -191,7 +212,7 @@ public class SelectionManager : MonoBehaviour
                 centerDotImage.gameObject.SetActive(true);
                 handIcon.gameObject.SetActive(false);
             }
-            if (!npc && !interactable && !animal && !choppableTree && !storageBox && !campfire)
+            if (!npc && !interactable && !animal && !choppableTree && !storageBox && !campfire && !shop)
             {
                 interaction_text.text = "";
                 interaction_Info_UI.SetActive(false);

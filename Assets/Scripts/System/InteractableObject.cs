@@ -22,7 +22,7 @@ public class InteractableObject : MonoBehaviour
             //eğer envanter dolu değilse
             if(InventorySystem.Instance.CheckSlotsAvailable(1))
             {
-                InventorySystem.Instance.AddToInventory(ItemName);
+                InventorySystem.Instance.AddToInventory(ItemName, true);
 
                 InventorySystem.Instance.itemsPickedup.Add(gameObject.name);
 
