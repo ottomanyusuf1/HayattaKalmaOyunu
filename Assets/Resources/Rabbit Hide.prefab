@@ -76,6 +76,9 @@ MonoBehaviour:
   isEquippable: 0
   isInsideQuickSlot: 0
   isSelected: 0
+  isUseable: 0
+  amountInInventory: 1
+  sellingPrice: 12
 --- !u!225 &-5406854012054626548
 CanvasGroup:
   m_ObjectHideFlags: 0

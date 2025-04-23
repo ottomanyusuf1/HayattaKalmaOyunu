@@ -32,8 +32,8 @@ public class BuySystem : MonoBehaviour
     [Header("Current List")]
     public List<ShopItemData> currentShopList;
 
-    [Header("Optional Season Lists")]
-    public List<ShopItemData> springList = new List<ShopItemData>();
+  //  [Header("Optional Season Lists")]
+   // public List<ShopItemData> springList = new List<ShopItemData>();
 
     void Start()
     {
@@ -43,12 +43,12 @@ public class BuySystem : MonoBehaviour
     //    if (TimeManager.Instance.currentSeason == TimeManager.Season.Spring)
         {
             // Set spring list as our list
-            currentShopList = springList;
+        //    currentShopList = springList;
 
             // Initialize list
-            InitializeBuyList(currentShopList);
+       //     
         }
-
+        InitializeBuyList(currentShopList);
     }
 
     private void InitializeBuyList(List<ShopItemData> shopList)

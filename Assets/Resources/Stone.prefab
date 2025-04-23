@@ -126,3 +126,5 @@ MonoBehaviour:
   isInsideQuickSlot: 0
   isSelected: 0
   isUseable: 0
+  amountInInventory: 1
+  sellingPrice: 7

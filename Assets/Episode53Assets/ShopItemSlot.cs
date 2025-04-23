@@ -24,8 +24,8 @@ public class ShopItemSlot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int currentMoney = 100; // Hardcoded, later get it from inventory
-      //int currentMoney = InventorySystem.Instance.currentCoins;
+        
+        int currentMoney = InventorySystem.Instance.currentCoins;
 
         // Enable/Disable Button based on current owned money
         if (shopItemData.itemPrice <= currentMoney) 
@@ -38,16 +38,16 @@ public class ShopItemSlot : MonoBehaviour
         }
     }
 
-    public void BuyItem()
+    public void BuyItem() // This will be called only if we have enough money
     {
         // Remove Coins
-      //  InventorySystem.Instance.currentCoins -= shopItemData.itemPrice;
+        InventorySystem.Instance.currentCoins -= shopItemData.itemPrice;
 
         // Get inventory item Name
         InventoryItem inventoryItem = shopItemData.inventoryItem.GetComponent<InventoryItem>();
 
         // Add items into inventory
-      //  InventorySystem.Instance.AddToInventory(inventoryItem.thisName, true);
+        InventorySystem.Instance.AddToInventory(inventoryItem.thisName, true);
 
         Debug.Log("Bought " + inventoryItem.thisName);
     }

@@ -66,7 +66,16 @@ public class ItemSlot : MonoBehaviour, IDropHandler
             {
                 DragDrop.itemBeingDragged.transform.SetParent(transform);
             }
-        } 
+        }
+
+        StartCoroutine(DelayedScan());
+    }
+
+    IEnumerator DelayedScan()
+    {
+        yield return new WaitForSeconds(0.1f);
+        SellSystem.Instance.ScanItemsInSlots();
+        SellSystem.Instance.UpdateSellAmountUI();
     }
 
     InventoryItem GetStoredItem ()

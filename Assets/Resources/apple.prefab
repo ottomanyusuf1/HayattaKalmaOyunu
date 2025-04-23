@@ -188,6 +188,8 @@ MonoBehaviour:
   isInsideQuickSlot: 0
   isSelected: 0
   isUseable: 0
+  amountInInventory: 1
+  sellingPrice: 7
 --- !u!225 &4977389674448053946
 CanvasGroup:
   m_ObjectHideFlags: 0

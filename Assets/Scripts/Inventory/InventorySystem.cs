@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
+using TMPro;
 using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class InventorySystem : MonoBehaviour
     public bool isOpen;
     //public bool isFull;
 
+    public TextMeshProUGUI currencyUI;
 
     //pickup popup
     public GameObject pickupAlert;
@@ -30,7 +32,9 @@ public class InventorySystem : MonoBehaviour
 
     public List<string> itemsPickedup;
 
-    public int stackLimit = 2;
+    public int stackLimit = 1;
+
+    internal int currentCoins = 100;
  
  
     private void Awake()
@@ -81,6 +85,8 @@ public class InventorySystem : MonoBehaviour
         {
             CloseUI();
         }
+
+        currencyUI.text = $"{currentCoins} Coins";
     }
 
     public void OpenUI()
@@ -101,7 +107,9 @@ public class InventorySystem : MonoBehaviour
     public void CloseUI()
     {
         inventoryScreenUI.SetActive(false);
-            if(!CraftingSystem.Instance.isOpen && !StorageManager.Instance.storageUIOpen && !CampfireUIManager.Instance.isUiOpen)
+            if(!CraftingSystem.Instance.isOpen && !StorageManager.Instance.storageUIOpen 
+            && !CampfireUIManager.Instance.isUiOpen
+            && !BuySystem.Instance.ShopKeeper.isTalkingWithPlayer)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
