@@ -79,10 +79,14 @@ public class InventorySystem : MonoBehaviour
  
         if (Input.GetKeyDown(KeyCode.E) && !isOpen && !ConstructionManager.Instance.inConstructionMode)
         {
+            MovmentManager.Instance.EnableLook(false);
+
             OpenUI(); 
         }
         else if (Input.GetKeyDown(KeyCode.E) && isOpen)
         {
+            MovmentManager.Instance.EnableLook(true);
+
             CloseUI();
         }
 

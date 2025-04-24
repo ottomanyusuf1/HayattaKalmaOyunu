@@ -174,6 +174,7 @@ public class CraftingSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C) && !isOpen && !ConstructionManager.Instance.inConstructionMode)
         {
+            MovmentManager.Instance.EnableLook(false);
  
             craftingScreenUI.SetActive(true);
 
@@ -192,6 +193,8 @@ public class CraftingSystem : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.C) && isOpen)
         {
+            MovmentManager.Instance.EnableLook(true);
+
             craftingScreenUI.SetActive(false);
             toolsScreenUI.SetActive(false);
             survivalScreenUI.SetActive(false);

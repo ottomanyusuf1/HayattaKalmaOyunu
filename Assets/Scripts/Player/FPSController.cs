@@ -60,8 +60,8 @@ public class FPSController : MonoBehaviour
             Movement();
         }
         
-        if(!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen && !MenuManager.Instance.isMenuOpen && !DialogSystem.Instance.dialogUIActivate && !QuestManager.Instance.isQuestMenuOpen && !StorageManager.Instance.storageUIOpen && !CampfireUIManager.Instance.isUiOpen)
-        {
+        //if(!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen && !MenuManager.Instance.isMenuOpen && !DialogSystem.Instance.dialogUIActivate && !QuestManager.Instance.isQuestMenuOpen && !StorageManager.Instance.storageUIOpen && !CampfireUIManager.Instance.isUiOpen)
+        //{
                 if (MovmentManager.Instance.canLookAround){
                     float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
                     float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
@@ -81,7 +81,7 @@ public class FPSController : MonoBehaviour
                     // Zoom (Sağ Tık)
                     float targetFOV = Input.GetKey(KeyCode.V) ? zoomFOV : normalFOV;
                     cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFOV, zoomSpeed * Time.deltaTime);
-                }
+               // }
     }
 
     public void Movement()
