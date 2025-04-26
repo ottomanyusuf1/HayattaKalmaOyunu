@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BearChaseState : StateMachineBehaviour
+public class CreatureChaseState : StateMachineBehaviour
 {
     NavMeshAgent agent;
     Transform player;

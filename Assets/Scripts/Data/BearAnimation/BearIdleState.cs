@@ -1,7 +1,7 @@
 using System.Threading;
 using UnityEngine;
 
-public class BearIdleState : StateMachineBehaviour
+public class CreatureIdleState : StateMachineBehaviour
 {
 
     float timer;

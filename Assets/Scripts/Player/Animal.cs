@@ -1,18 +1,20 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Animal : MonoBehaviour
 {
     public string animalName;
     public bool playerInRange;
 
-    [SerializeField] int currentHealt;
-    [SerializeField] int maxHealt;
+    [SerializeField] float currentHealt;
+    [SerializeField] float maxHealt;
 
     [Header("Sounds")]
     [SerializeField] AudioSource soundChannel;
-    [SerializeField] AudioClip rabbitHitAndScream;
-    [SerializeField] AudioClip rabbitHitAndDie;
+    [SerializeField] AudioClip animalHitAndScream;
+    [SerializeField] AudioClip animalHitAndDie;
+    [SerializeField] AudioClip animalAttack;
 
     private Animator animator;
     public bool isDead;
@@ -20,11 +22,13 @@ public class Animal : MonoBehaviour
     [SerializeField] ParticleSystem bloodSplashParticles;
     public GameObject bloodPuddle;
 
+    public Slider healthBarSlider;
+
     enum AnimalType
     {
         Rabbit,
-        Wolf,
         Skeleton,
+        Bear
     }
 
     [SerializeField] AnimalType thisAnimalType;
@@ -34,13 +38,18 @@ public class Animal : MonoBehaviour
         currentHealt = maxHealt;
 
         animator = GetComponent<Animator>();
+
     }
+   
 
     public void TakeDamage(int damage)
     {
+
+        
         if (isDead == false)
         {
             currentHealt -= damage;
+            healthBarSlider.value = currentHealt / maxHealt;
 
             bloodSplashParticles.Play();
 
@@ -48,7 +57,12 @@ public class Animal : MonoBehaviour
             {
                 PlayDyingSound();
                 animator.SetTrigger("DIE");
-                GetComponent<AI_Movement>().enabled = false;
+                // nev mesh agent varsa sil
+                 if (thisAnimalType == AnimalType.Rabbit)
+                 {
+                     GetComponent<AI_Movement>().enabled = false;
+                 }
+                
 
                 StartCoroutine(PuddleDelay());
                 isDead = true;
@@ -56,6 +70,8 @@ public class Animal : MonoBehaviour
             else
             {
                 PlayHitSound();
+
+                animator.SetTrigger("HURT");
             }
         }
     }
@@ -68,32 +84,28 @@ public class Animal : MonoBehaviour
 
     private void PlayDyingSound()
     {
-        switch (thisAnimalType)
-        {
-            case AnimalType.Rabbit:
-                soundChannel.PlayOneShot(rabbitHitAndDie);
-                break;
-            case AnimalType.Wolf:
-               // soundChannel.PlayOneShot(); //Wolf Sound Clip
-                break;
-            default:
-                break;
-        }
+        soundChannel.PlayOneShot(animalHitAndDie);
     }
 
     private void PlayHitSound()
     {
-        switch (thisAnimalType)
-        {
-            case AnimalType.Rabbit:
-                soundChannel.PlayOneShot(rabbitHitAndScream);
-                break;
-            case AnimalType.Wolf:
-               // soundChannel.PlayOneShot(); //Wolf Sound Clip
-                break;
-            default:
-                break;
-        }
+        soundChannel.PlayOneShot(animalHitAndScream);
+        // switch (thisAnimalType)
+        // {
+        //     case AnimalType.Rabbit:
+        //         soundChannel.PlayOneShot(animalHitAndScream);
+        //         break;
+        //     case AnimalType.Bear:
+        //        // soundChannel.PlayOneShot(); //Wolf Sound Clip
+        //         break;
+        //     default:
+        //         break;
+        // }
+    }
+
+    public void PlayAttackSound()
+    {
+        soundChannel.PlayOneShot(animalAttack);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -101,6 +113,7 @@ public class Animal : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             playerInRange = true;
+            healthBarSlider.gameObject.SetActive(true);
         }
     }
 
@@ -109,6 +122,7 @@ public class Animal : MonoBehaviour
          if(other.CompareTag("Player"))
         {
             playerInRange = false;
+            healthBarSlider.gameObject.SetActive(false);
         }
     }
 

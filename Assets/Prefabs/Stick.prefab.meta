@@ -1,14 +1,7 @@
 fileFormatVersion: 2
-guid: 36b6168b2c1ac8c46b450971364fc399
+guid: 48a5e29571d6c2a41aeb02cf5450bc1f
 PrefabImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 301518
-  packageName: Fantasy Lowpoly Pack (Demo)
-  packageVersion: 1.0
-  assetPath: Assets/Fantasy Lowpoly Pack (Demo)/Prefabs/tree-truck.prefab
-  uploadId: 708606

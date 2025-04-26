@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BearWalkState : StateMachineBehaviour
+public class CreatureWalkState : StateMachineBehaviour
 {
     float timer;
     public float walkingTime = 10f;

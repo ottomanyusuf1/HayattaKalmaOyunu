@@ -183,7 +183,7 @@ MonoBehaviour:
   isConsumable: 1
   healthEffect: 30
   caloriesEffect: 500
-  hydrationEffect: 0
+  hydrationEffect: 20
   isEquippable: 0
   isInsideQuickSlot: 0
   isSelected: 0

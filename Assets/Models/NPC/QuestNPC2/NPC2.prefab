@@ -415,7 +415,6 @@ MonoBehaviour:
   isTalkingWithPlayer: 0
   quests:
   - {fileID: 9206152781731134581}
-  - {fileID: 0}
   currentActiveQuest: {fileID: 0}
   activeQuestIndex: 0
   firstTimeInteraction: 1
