@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,7 @@ public class Animal : MonoBehaviour
     public GameObject bloodPuddle;
 
     public Slider healthBarSlider;
+    public event Action OnDestroyed;
 
     enum AnimalType
     {
@@ -39,6 +41,11 @@ public class Animal : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
+    }
+
+    private void OnDestroy()
+    {
+        OnDestroyed?.Invoke();
     }
    
 
