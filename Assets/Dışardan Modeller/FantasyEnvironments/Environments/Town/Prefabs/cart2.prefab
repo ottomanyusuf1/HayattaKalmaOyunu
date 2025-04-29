@@ -96,6 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4574964968786008}
   - component: {fileID: 205551025916365220}
+  - component: {fileID: 8014825381376847164}
   m_Layer: 0
   m_Name: cart2
   m_TagString: Untagged
@@ -113,8 +114,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.73, y: 1.73, z: 1.73}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4057817961535370}
   - {fileID: 4349251308411064}
@@ -148,6 +149,22 @@ LODGroup:
     renderers:
     - renderer: {fileID: 23161771133244318}
   m_Enabled: 1
+--- !u!208 &8014825381376847164
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314243447500700}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1665789389861466
 GameObject:
   m_ObjectHideFlags: 0

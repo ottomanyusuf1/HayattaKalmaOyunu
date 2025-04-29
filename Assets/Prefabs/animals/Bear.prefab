@@ -230,6 +230,9 @@ MonoBehaviour:
   - item: {fileID: 1635308475840816946, guid: 886c328d56acbe24d9f81df3d9750162, type: 3}
     amountMin: 2
     amountMax: 4
+  - item: {fileID: 8864844347614565920, guid: e145d65feaf39a54a8ad65a9acf0ac5e, type: 3}
+    amountMin: 1
+    amountMax: 1
   finalLoot: []
   wasLootCalculated: 0
 --- !u!82 &4346226912495062659
