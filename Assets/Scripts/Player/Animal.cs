@@ -67,7 +67,7 @@ public class Animal : MonoBehaviour
                 // nev mesh agent varsa sil
                  if (thisAnimalType == AnimalType.Rabbit)
                  {
-                     GetComponent<AI_Movement>().enabled = false;
+                     GetComponent<AI_Movement>().enabled = true;
                  }
                 
 

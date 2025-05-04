@@ -69,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 03a52f8691647014fb1b81c0db014dea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a6282407890a5a74fac6fdf5c5d15b47, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -126,6 +126,9 @@ MonoBehaviour:
   isEquippable: 1
   isInsideQuickSlot: 0
   isSelected: 0
+  isUseable: 0
+  amountInInventory: 1
+  sellingPrice: 0
 --- !u!114 &-6607459186116809736
 MonoBehaviour:
   m_ObjectHideFlags: 0
